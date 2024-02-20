@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"log"
-	"log/syslog"
 	"os"
 	"os/signal"
 	"qtunnel/tunnel"
@@ -35,13 +34,13 @@ func main() {
 	flag.Parse()
 
 	log.SetOutput(os.Stdout)
-	if logTo == "syslog" {
-		w, err := syslog.New(syslog.LOG_INFO, "qtunnel")
-		if err != nil {
-			log.Fatal(err)
-		}
-		log.SetOutput(w)
-	}
+	// if logTo == "syslog" {
+	// 	w, err := syslog.New(syslog.LOG_INFO, "qtunnel")
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// 	log.SetOutput(w)
+	// }
 
 	t := tunnel.NewTunnel(faddr, baddr, clientMode, cryptoMethod, secret, 4096)
 	log.Println("qtunnel started.")
